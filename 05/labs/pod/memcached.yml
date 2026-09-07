@@ -1,0 +1,9 @@
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: memcached
+spec:
+  containers:
+    - name: mycache
+      image: memcached

@@ -1,0 +1,25 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+patches:
+  - target:
+      kind: Deployment
+      name: my-app
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: my-app
+      spec:
+        # 프로덕션에서는 5개 실행
+        replicas: 5                  
+        template:
+          spec:
+            containers:
+              - name: my-app
+           # 프로덕션에서는 안정화 버전 사용
+                image: nginx:stable  

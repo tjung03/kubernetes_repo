@@ -1,0 +1,16 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: os-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: os-container
+        image: centos:7
+        command: ["bash"]
+        args:
+          - "-c"
+          - "echo 'Hello, OS' ; sleep 60 ; echo 'Bye, OS'"
+      restartPolicy: Never

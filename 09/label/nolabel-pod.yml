@@ -1,0 +1,14 @@
+---
+# kubectl run nolabel-pod --image=nginx:1.14 --port=80
+# kubectl label pod nolabel-pod run-
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nolabel-pod
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14
+    ports:
+    - containerPort: 80
+

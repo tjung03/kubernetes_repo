@@ -1,0 +1,16 @@
+---
+# https://kubernetes.io/ko/docs/tasks/configure-pod-container/assign-pods-nodes/
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wrong-pod-nodeselector
+spec:
+  nodeSelector:
+    gpu: "true"
+    disk: ssd
+    mem: high
+  containers:
+  - name: nginx
+    image: nginx:1.14
+    ports:
+    - containerPort: 80

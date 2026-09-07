@@ -1,0 +1,26 @@
+---
+kind: ReplicationController
+apiVersion: v1
+metadata:
+  name: rc-mainui
+spec:
+  replicas: 2
+  selector:
+    name: apache
+    app: main
+  template:
+    metadata:
+      name: apache-pod
+      labels:
+        name: apache
+        app: main
+        rel: stable
+    spec:
+      containers:
+      - name: apache-container
+        image: httpd:2.2
+        ports:
+        - containerPort: 80
+        # env
+        # resources
+        # probe

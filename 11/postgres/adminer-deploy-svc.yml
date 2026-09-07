@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adminer-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adminer
+  template:
+    metadata:
+      labels:
+        app: adminer
+    spec:
+      containers:
+      - name: adminer-container
+        image: adminer:5.4.0
+        ports:
+        - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: adminer-svc
+spec:
+#  type: LoadBalancer
+  selector:
+    app: adminer
+  ports:
+  - port: 8080
+    targetPort: 8080
+#    nodePort: 30100
+

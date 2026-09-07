@@ -1,0 +1,36 @@
+---
+# kubectl create deploy home-deploy --image=httpd --port=80 --replicas=1 
+# kubectl label deploy home-deploy name=home
+# kubectl label pod -l name=home name=home
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: home-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: home
+  template:
+    metadata:
+      labels:
+        name: home
+    spec:
+      containers:
+      - name: home-container
+        image: httpd
+        ports:
+        - containerPort: 80
+---
+# kubectl create service clusterip home-service --tcp=80:80 --selector=home
+apiVersion: v1
+kind: Service
+metadata:
+  name: home-service
+spec:
+  selector:
+    name: home
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80

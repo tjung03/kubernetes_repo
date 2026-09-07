@@ -1,0 +1,16 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: tensorflow-gpu
+  labels:
+    app: machinerunning
+spec:
+  containers:
+  - name: tensorflow
+    image: tensorflow/tensorflow:nightly-jupyter
+    ports:
+    - containerPort: 8888
+  nodeSelector:
+    disktype: "ssd"
+    gpu: "true"
+

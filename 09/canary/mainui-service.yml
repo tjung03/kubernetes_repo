@@ -1,0 +1,13 @@
+---
+# kubectl create service clusterip mainui-svc --tcp=80:80 --selector=app=mainui
+apiVersion: v1
+kind: Service
+metadata:
+  name: mainui-svc
+spec:
+  selector:
+    app: mainui
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80

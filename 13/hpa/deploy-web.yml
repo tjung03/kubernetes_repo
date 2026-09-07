@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template: 
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: tjung03/hpa-example
+        ports:
+        - containerPort: 80
+      resources:
+        requests:
+          cpu: 200m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-web
+spec:
+  selector:
+    app: web
+  ports:
+  - port: 80
+    targetPort: 80

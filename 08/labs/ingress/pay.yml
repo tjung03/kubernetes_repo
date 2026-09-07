@@ -1,0 +1,38 @@
+---
+# kubectl create deploy pay-deploy --replicas=3 --image=whatwant/node-web:2.0 --port=8080
+# kubectl label deploy pay-deploy app=apy
+# kubectl label pod -l app=pay app=pay
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pay-deploy
+  namespace: testns
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pay
+  template:
+    metadata:
+      labels:
+        app: pay
+    spec:
+      containers:
+      - name: pay-container
+        image: whatwant/node-web:2.0
+        ports:
+        - containerPort: 8080
+---
+# kubectl create service clusterip pay-service --tcp=80:8080 --selector=app=pay
+apiVersion: v1
+kind: Service
+metadata:
+  name: pay-service
+  namespace: testns
+spec:
+  selector:
+    app: pay
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080

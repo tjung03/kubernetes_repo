@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-annotation
+  annotations:
+    builder: "BSC(jang4sc@hanmail.net)"
+    buildDate: "20220812"
+    imageRegistry: "https://hub.docker.com"
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14
+    ports:
+    - containerPort: 80
