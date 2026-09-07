@@ -81,6 +81,8 @@ kubectl delete namespace portfolio-kustomize
 | Kustomize 이미지 | Base `nginx:latest`, Stage `nginx:1.21`, Prod `nginx:stable`. 부동 태그의 실제 이미지는 가져오는 시점에 따라 달라짐 |
 | Service·스토리지 | 일부 예제는 ClusterIP와 NFS 서버 주소를 고정하므로 클러스터 주소 범위와 NFS 환경에 맞게 준비 |
 | HPA | CPU 목표 50%, 복제본 1~10개 설정. Metrics API가 필요하며, `deploy-web.yml`의 `resources.requests`는 컨테이너 항목 안으로 위치를 맞춰야 함 |
-| 인증·RBAC | TLS와 사용자 인증 실습은 새 로컬 키·인증서를 준비. `18/helm`의 RBAC는 `default` ServiceAccount에 전체 리소스 권한을 부여하므로 전용 실습 클러스터에서 사용 |
+| 인증·RBAC | TLS와 사용자 인증 실습은 새 로컬 키와 이에 대응하는 인증서·CSR을 준비. CSR YAML의 `spec.request`도 새 CSR로 갱신. `18/helm`의 RBAC는 `default` ServiceAccount에 전체 리소스 권한을 부여하므로 전용 실습 클러스터에서 사용 |
 
 Ingress NGINX 컨트롤러는 2026년 3월 지원이 종료되었습니다. `nginx` 클래스의 컨트롤러로 ingress-nginx를 사용하는 환경은 [공식 종료 안내](https://kubernetes.io/blog/2025/11/11/ingress-nginx-retirement/)를 참고할 수 있습니다. 저장소에는 [Gateway API 예제](08/gateway/)도 있으며, 필요한 CRD와 구현체는 [Gateway API 공식 안내](https://gateway-api.sigs.k8s.io/guides/getting-started/introduction/)에서 확인할 수 있습니다.
+
+개인 키(`*.key`)는 로컬에서 생성하고 Git에 포함하지 않습니다. 인증서 서명 요청(CSR)과 인증서는 같은 개인 키에 대응해야 합니다. TLS Secret 예제의 `tls.key`·`tls.crt` 값도 새 키·인증서로 구성하며, 실제 키를 넣은 Secret YAML은 커밋하지 않습니다.
